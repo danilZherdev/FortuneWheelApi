@@ -1,10 +1,7 @@
 package ru.mif.fortunewheel.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @MappedSuperclass
 public abstract class PersistentObject {

@@ -5,69 +5,39 @@ import ru.mif.fortunewheel.dto.Data;
 
 import java.time.ZonedDateTime;
 
-public class SpinPrizeData implements Data<SpinPrizeData, SpinPrize> {
-    private boolean given;
-    private SpinData spin;
-    private PrizeData prize;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime updatedAt;
+public final class SpinPrizeData extends Data<SpinPrize> {
+    private final boolean given;
+    private final SpinData spin;
+    private final PrizeData prize;
+    private final ZonedDateTime createdAt;
+    private final ZonedDateTime updatedAt;
 
-    public SpinPrizeData(boolean given, SpinData spin, PrizeData prize, ZonedDateTime createdAt, ZonedDateTime updatedAt) {
-        this.given = given;
-        this.spin = spin;
-        this.prize = prize;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public SpinPrizeData(SpinPrize spinPrize) {
+        super(spinPrize);
+        this.given = spinPrize.isGiven();
+        this.spin = new SpinData(spinPrize.getSpin());
+        this.prize = new PrizeData(spinPrize.getPrize());
+        this.createdAt = spinPrize.getCreatedAt();
+        this.updatedAt = spinPrize.getUpdatedAt();
     }
 
     public boolean isGiven() {
         return given;
     }
 
-    public void setGiven(boolean given) {
-        this.given = given;
-    }
-
     public SpinData getSpin() {
         return spin;
-    }
-
-    public void setSpin(SpinData spin) {
-        this.spin = spin;
     }
 
     public PrizeData getPrize() {
         return prize;
     }
 
-    public void setPrize(PrizeData prize) {
-        this.prize = prize;
-    }
-
     public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public ZonedDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public SpinPrizeData fromEntity(SpinPrize spinPrize) {
-        return new SpinPrizeData(
-                spinPrize.isGiven(),
-                new SpinData().fromEntity(spinPrize.getSpin()),
-                new PrizeData().fromEntity(spinPrize.getPrize()),
-                spinPrize.getCreatedAt(),
-                spinPrize.getUpdatedAt()
-        );
     }
 }

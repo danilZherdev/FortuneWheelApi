@@ -2,24 +2,42 @@ package ru.mif.fortunewheel.dto.data;
 
 import ru.mif.fortunewheel.domain.Prize;
 import ru.mif.fortunewheel.dto.Data;
-import ru.mif.fortunewheel.dto.models.PrizeModel;
 import ru.mif.fortunewheel.enums.PrizeType;
 
-public class PrizeData extends PrizeModel implements Data<PrizeData, Prize> {
+public class PrizeData extends Data<Prize> {
 
-    public PrizeData() {}
+    private final long id;
+    private final String title;
+    private final String uri;
+    private final PrizeType prizeType;
+    private final String description;
 
-    public PrizeData(long id, String description, String url, PrizeType prizeType) {
-        super(id, description, url, prizeType);
+    public PrizeData(Prize prize) {
+        super(prize);
+        this.id = prize.getId();
+        this.title = prize.getTitle();
+        this.uri = prize.getUri();
+        this.prizeType = prize.getType();
+        this.description = prize.getDescription();
     }
 
-    @Override
-    public PrizeData fromEntity(Prize prize) {
-        return new PrizeData(
-                prize.getId(),
-                prize.getDescription(),
-                prize.getUri(),
-                prize.getType()
-        );
+    public long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public PrizeType getPrizeType() {
+        return prizeType;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

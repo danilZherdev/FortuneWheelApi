@@ -8,7 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
-public class APIClientModel implements Model<APIClientModel, APIClient> {
+public class APIClientModel implements Model<APIClient> {
 
     @Pattern(regexp = Patterns.URL_PATTERN, message = "Указанный домен не является валидным доменом.")
     private String domain;
@@ -17,7 +17,8 @@ public class APIClientModel implements Model<APIClientModel, APIClient> {
     @Max(value = 1024, message = "Неверный secret")
     private String secret;
 
-    public APIClientModel() {}
+    public APIClientModel() {
+    }
 
     public APIClientModel(String domain, String agent, String secret) {
         this.domain = domain;
@@ -37,8 +38,20 @@ public class APIClientModel implements Model<APIClientModel, APIClient> {
         return secret;
     }
 
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public void setAgent(String agent) {
+        this.agent = agent;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
     @Override
-    public APIClient toEntity(APIClientModel model) {
-        return new APIClient(model.getDomain(), model.getAgent(), model.getSecret());
+    public APIClient toEntity() {
+        return new APIClient(this.getDomain(), this.getAgent(), this.getSecret());
     }
 }

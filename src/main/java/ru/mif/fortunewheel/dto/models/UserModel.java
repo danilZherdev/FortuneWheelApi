@@ -2,14 +2,13 @@ package ru.mif.fortunewheel.dto.models;
 
 import ru.mif.fortunewheel.domain.User;
 import ru.mif.fortunewheel.dto.Model;
-import ru.mif.fortunewheel.dto.data.UserData;
 import ru.mif.fortunewheel.enums.UserRole;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-public class UserModel implements Model<UserData, User> {
+public class UserModel implements Model<User> {
 
     @Email
     private String email;
@@ -32,8 +31,16 @@ public class UserModel implements Model<UserData, User> {
         return hash;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
     @Override
-    public User toEntity(UserData userData) {
+    public User toEntity() {
         return new User(email, hash, UserRole.CUSTOMER);
     }
 }

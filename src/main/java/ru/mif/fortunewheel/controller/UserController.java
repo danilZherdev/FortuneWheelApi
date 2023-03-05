@@ -2,7 +2,8 @@ package ru.mif.fortunewheel.controller;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import ru.mif.fortunewheel.dto.data.PageData;
+import ru.mif.fortunewheel.dto.Page;
+import ru.mif.fortunewheel.dto.data.TokenData;
 import ru.mif.fortunewheel.dto.data.UserData;
 import ru.mif.fortunewheel.dto.models.UserModel;
 import ru.mif.fortunewheel.enums.UserRole;
@@ -17,7 +18,7 @@ public class UserController {
     }
 
     @PatchMapping
-    public UserData auth(UserModel user) {
+    public TokenData auth(UserModel user) {
         return null;
     }
 
@@ -29,7 +30,7 @@ public class UserController {
 
     @Secured(UserRole.ADMIN_ROLE)
     @GetMapping("{/:size/:number}")
-    public PageData<UserData> get(@PathVariable int size, @PathVariable int number){
+    public Page<UserData> get(@PathVariable int size, @PathVariable int number){
         return null;
     }
 

@@ -2,7 +2,7 @@ package ru.mif.fortunewheel.controller;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import ru.mif.fortunewheel.dto.data.PageData;
+import ru.mif.fortunewheel.dto.Page;
 import ru.mif.fortunewheel.dto.data.SpinData;
 import ru.mif.fortunewheel.enums.UserRole;
 
@@ -26,7 +26,7 @@ public class SpinController {
 
     @Secured({UserRole.CUSTOMER_ROLE, UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
     @GetMapping("/all")
-    PageData<SpinData> getAll(@PathVariable int size, @PathVariable int number, String userHash) {
+    Page<SpinData> getAll(@PathVariable int size, @PathVariable int number, String userHash) {
         return null;
     }
 

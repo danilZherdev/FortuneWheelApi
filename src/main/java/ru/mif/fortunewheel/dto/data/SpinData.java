@@ -4,16 +4,15 @@ import ru.mif.fortunewheel.domain.Spin;
 import ru.mif.fortunewheel.dto.Data;
 import ru.mif.fortunewheel.enums.SpinStatusType;
 
-public class SpinData implements Data<SpinData, Spin> {
+public class SpinData extends Data<Spin> {
 
-    private SpinStatusType status;
-    private UserData user;
+    private final SpinStatusType status;
+    private final UserData user;
 
-    public SpinData() {}
-
-    public SpinData(SpinStatusType status, UserData user) {
-        this.status = status;
-        this.user = user;
+    public SpinData(Spin spin) {
+        super(spin);
+        this.status = spin.getStatus();
+        this.user = new UserData(spin.getUser());
     }
 
     public SpinStatusType getStatus() {
@@ -22,13 +21,5 @@ public class SpinData implements Data<SpinData, Spin> {
 
     public UserData getUser() {
         return user;
-    }
-
-    @Override
-    public SpinData fromEntity(Spin spin) {
-        return new SpinData(
-                spin.getStatus(),
-                new UserData().fromEntity(spin.getUser())
-        );
     }
 }

@@ -5,21 +5,20 @@ import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.enums.PrizeType;
 import ru.mif.fortunewheel.utils.Patterns;
 
-import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
-public class PrizeModel implements Model<PrizeModel, Prize> {
+public class PrizeModel implements Model<Prize> {
 
-    long id;
-    String title;
+    private long id;
+    private String title;
     @Min(value = 8, message = "Длина описания должна быть не менее 8 символов")
     @Max(value = 2048, message = "Длина описания должна быть не более 2048 символов")
-    String description;
+    private String description;
     @Pattern(regexp = Patterns.URL_PATTERN, message = "Указанный домен не является валидным доменом.")
-    String url;
-    PrizeType prizeType;
+    private String url;
+    private PrizeType prizeType;
 
     public PrizeModel(long id, String description, String url, PrizeType prizeType) {
         this.id = id;
@@ -68,7 +67,12 @@ public class PrizeModel implements Model<PrizeModel, Prize> {
     }
 
     @Override
-    public Prize toEntity(PrizeModel prizeModel) {
-        return new Prize(prizeModel.getTitle(),prizeModel.getDescription(), prizeModel.getUrl(), prizeModel.getPrizeType());
+    public Prize toEntity() {
+        return new Prize(
+                this.getTitle(),
+                this.getDescription(),
+                this.getUrl(),
+                this.getPrizeType()
+        );
     }
 }
