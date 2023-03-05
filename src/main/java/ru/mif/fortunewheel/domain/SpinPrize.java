@@ -19,6 +19,10 @@ public class SpinPrize extends PersistentObject {
 
     public SpinPrize() {}
 
+    public SpinPrize(Spin spin, Prize prize) {
+        this(false, spin, prize);
+    }
+
     public SpinPrize(boolean given, Spin spin, Prize prize) {
         this.given = given;
         this.spin = spin;

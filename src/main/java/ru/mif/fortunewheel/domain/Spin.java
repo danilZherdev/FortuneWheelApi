@@ -3,15 +3,16 @@ package ru.mif.fortunewheel.domain;
 import ru.mif.fortunewheel.enums.SpinStatusType;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "spins")
 public class Spin extends PersistentObject {
 
-    @Column(name = "used", columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean used;
+    @Column(name = "hash", nullable = false)
+    private String hash;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT FALSE")
     private SpinStatusType status;
 
     @ManyToOne
@@ -20,18 +21,18 @@ public class Spin extends PersistentObject {
 
     public Spin() {}
 
-    public Spin(boolean used, SpinStatusType status, User user) {
-        this.used = used;
+    public Spin(String hash, SpinStatusType status, User user) {
+        this.hash = hash;
         this.status = status;
         this.user = user;
     }
 
-    public boolean isUsed() {
-        return used;
+    public String getHash() {
+        return hash;
     }
 
-    public void setUsed(boolean used) {
-        this.used = used;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
     public SpinStatusType getStatus() {

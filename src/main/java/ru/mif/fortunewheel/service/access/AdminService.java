@@ -1,13 +1,15 @@
 package ru.mif.fortunewheel.service.access;
 
+import org.springframework.stereotype.Service;
 import ru.mif.fortunewheel.domain.User;
-import ru.mif.fortunewheel.dto.Page;
 import ru.mif.fortunewheel.dto.data.TokenData;
-import ru.mif.fortunewheel.dto.data.UserData;
-import ru.mif.fortunewheel.dto.models.UserModel;
 import ru.mif.fortunewheel.service.AccountService;
-import ru.mif.fortunewheel.service.FullAccessService;
 
-public class AdminService {
+@Service
+public class AdminService implements AccountService<User> {
 
+    @Override
+    public TokenData<User> authenticate(String username, String password) {
+        return null;
+    }
 }

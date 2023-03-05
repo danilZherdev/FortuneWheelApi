@@ -17,8 +17,7 @@ public class User extends PersistentObject {
     @Column(name = "role", nullable = false)
     private UserRole role;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String email, String hash, UserRole role) {
         this.email = email;

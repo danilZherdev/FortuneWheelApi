@@ -6,11 +6,13 @@ import ru.mif.fortunewheel.enums.SpinStatusType;
 
 public class SpinData extends Data<Spin> {
 
+    private final String hash;
     private final SpinStatusType status;
     private final UserData user;
 
     public SpinData(Spin spin) {
         super(spin);
+        this.hash = spin.getHash();
         this.status = spin.getStatus();
         this.user = new UserData(spin.getUser());
     }

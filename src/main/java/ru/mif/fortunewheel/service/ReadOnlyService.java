@@ -1,8 +1,8 @@
 package ru.mif.fortunewheel.service;
 
+import org.springframework.data.domain.Page;
 import ru.mif.fortunewheel.domain.PersistentObject;
 import ru.mif.fortunewheel.dto.Data;
-import ru.mif.fortunewheel.dto.Page;
 
 /**
  * This interface describes service with only Read access rights.

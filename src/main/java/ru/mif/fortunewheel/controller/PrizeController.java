@@ -1,12 +1,14 @@
 package ru.mif.fortunewheel.controller;
 
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.data.domain.Page;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import ru.mif.fortunewheel.dto.Page;
+import ru.mif.fortunewheel.domain.Prize;
+import ru.mif.fortunewheel.dto.Data;
 import ru.mif.fortunewheel.dto.data.PrizeData;
-import ru.mif.fortunewheel.dto.data.UserData;
 import ru.mif.fortunewheel.dto.models.PrizeModel;
 import ru.mif.fortunewheel.enums.UserRole;
+import ru.mif.fortunewheel.service.access.PrizeService;
 
 import java.util.List;
 
@@ -14,33 +16,39 @@ import java.util.List;
 @RequestMapping("/prize")
 public class PrizeController {
 
-    @Secured({UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
+    private final PrizeService service;
+
+    public PrizeController(PrizeService service) {
+        this.service = service;
+    }
+
+//    @Secured({UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
     @PostMapping
     public PrizeData create(PrizeModel prizeModel){
-        return null;
+        return (PrizeData) service.create(prizeModel);
     }
 
-    @Secured({UserRole.ADMIN_ROLE, UserRole.CUSTOMER_ROLE,UserRole.API_CLIENT_ROLE})
+//    @Secured({UserRole.ADMIN_ROLE, UserRole.CUSTOMER_ROLE,UserRole.API_CLIENT_ROLE})
     @GetMapping("possible")
-    List<PrizeData> possible(List<PrizeModel> prizeModels){
-        return null;
+    List<PrizeData> possible(){
+        return List.of();
     }
 
-    @PostMapping
+    @PutMapping
     public PrizeData update(PrizeModel model) {
-        return null;
+        return (PrizeData) service.update(model);
     }
 
-    @Secured({UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
-    @DeleteMapping("/id")
+//    @Secured({UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
+    @DeleteMapping("/{id}")
     public PrizeData remove(@PathVariable long id){
-        return null;
+        return (PrizeData) service.delete(id);
     }
 
-    @Secured({UserRole.ADMIN_ROLE,UserRole.API_CLIENT_ROLE})
-    @GetMapping("{/:size/:number}")
-    public Page<UserData> get(@PathVariable int size, @PathVariable int number){
-        return null;
+//    @Secured({UserRole.ADMIN_ROLE,UserRole.API_CLIENT_ROLE})
+    @GetMapping("/{size}/{number}")
+    public Page<Data<Prize>> get(@PathVariable int size, @PathVariable int number){
+        return service.read(size, number);
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.mif.fortunewheel.dto.models;
 
+import org.springframework.validation.annotation.Validated;
 import ru.mif.fortunewheel.domain.Prize;
 import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.enums.PrizeType;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
+@Validated
 public class PrizeModel implements Model<Prize> {
 
     private long id;
@@ -20,8 +22,9 @@ public class PrizeModel implements Model<Prize> {
     private String url;
     private PrizeType prizeType;
 
-    public PrizeModel(long id, String description, String url, PrizeType prizeType) {
+    public PrizeModel(long id, String title, String description, String url, PrizeType prizeType) {
         this.id = id;
+        this.title = title;
         this.description = description;
         this.url = url;
         this.prizeType = prizeType;
@@ -64,6 +67,10 @@ public class PrizeModel implements Model<Prize> {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override

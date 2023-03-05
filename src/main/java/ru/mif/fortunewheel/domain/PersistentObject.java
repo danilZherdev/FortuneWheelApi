@@ -16,7 +16,7 @@ public abstract class PersistentObject {
     /**
      * Date when entity was created
      */
-    @Column(name = "created_at", nullable = false, columnDefinition = "date DEFAULT CURRENT_DATE")
+    @Column(name = "created_at", insertable = false, columnDefinition = "date DEFAULT CURRENT_DATE")
     private ZonedDateTime createdAt;
     /**
      * Last date when entity was updated.
