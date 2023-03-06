@@ -1,5 +1,10 @@
 package ru.mif.fortunewheel.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import ru.mif.fortunewheel.domain.PersistentObject;
 import ru.mif.fortunewheel.dto.Data;
 import ru.mif.fortunewheel.dto.data.TokenData;
@@ -24,5 +29,5 @@ public interface JWTMapper<ENTITY extends PersistentObject> {
      * @param token {@link String} result JSON Web Token.
      * @return extracted JWT data object with {@link Data<ENTITY>} type.
      */
-    Data<ENTITY> parse(String token);
+    Identified parse(String token);
 }

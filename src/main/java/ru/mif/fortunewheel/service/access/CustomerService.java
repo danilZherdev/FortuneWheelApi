@@ -6,15 +6,28 @@ import ru.mif.fortunewheel.domain.User;
 import ru.mif.fortunewheel.dto.Data;
 import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.dto.data.TokenData;
+import ru.mif.fortunewheel.repository.UserRepository;
+import ru.mif.fortunewheel.security.mapper.UserJWTMapper;
 import ru.mif.fortunewheel.service.ReadOnlyService;
+import ru.mif.fortunewheel.service.ServiceException;
 import ru.mif.fortunewheel.service.UserService;
 
 @Service
 public class CustomerService implements UserService<User>, ReadOnlyService<User> {
 
+    private final UserJWTMapper mapper;
+    private final UserRepository repository;
+
+    public CustomerService(UserJWTMapper mapper, UserRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
+
     @Override
-    public TokenData<?> authenticate(String username, String password) {
-        return null;
+    public TokenData<User> authenticate(String username, String password) {
+        var user = repository.findByEmailAndHash(username, password)
+                .orElseThrow(() -> new ServiceException("User with username = %s and hash = %s not found.", username, password));
+        return mapper.create(user);
     }
 
     @Override

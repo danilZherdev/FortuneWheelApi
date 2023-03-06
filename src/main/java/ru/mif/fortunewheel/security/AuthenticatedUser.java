@@ -33,8 +33,7 @@ public class AuthenticatedUser {
     public User getWithThrow() {
         return getAuthentication().flatMap(authentication -> userRepository.findByHash(authentication.getName()))
                 .orElseThrow(() -> {
-                    //todo СЮДА СОЗДАТЬ И ПОСТАВИТЬ AUTHENTICATION EXCEPTION
-                    return new ServiceException("СЮДА СОЗДАТЬ И ПОСТАВИТЬ AUTHENTICATION EXCEPTION");
+                    return new AuthenticationException("СЮДА СОЗДАТЬ И ПОСТАВИТЬ AUTHENTICATION EXCEPTION");
                 });
     }
 

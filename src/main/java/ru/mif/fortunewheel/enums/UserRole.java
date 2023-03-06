@@ -10,6 +10,4 @@ public enum UserRole {
     public static final String ADMIN_ROLE = "ROLE_ADMIN";
     public static final String API_CLIENT_ROLE = "ROLE_API_CLIENT";
 
-
-
 }

@@ -8,6 +8,7 @@ class FortuneWheelApiApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

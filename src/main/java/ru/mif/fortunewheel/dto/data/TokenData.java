@@ -3,15 +3,22 @@ package ru.mif.fortunewheel.dto.data;
 import ru.mif.fortunewheel.domain.PersistentObject;
 import ru.mif.fortunewheel.dto.Data;
 
+import java.time.ZonedDateTime;
+
 public final class TokenData<ENTITY extends PersistentObject> extends Data<ENTITY> {
 
     private final String token;
+    private final ZonedDateTime expiredAt;
     private final Data<ENTITY> data;
 
-    public TokenData(ENTITY data, String token, Class<Data<ENTITY>> clazz) {
-        super(data);
+    public TokenData(ENTITY entity,
+                     String token,
+                     ZonedDateTime expiredAt,
+                     Data<ENTITY> data) {
+        super(entity);
         this.token = token;
-        this.data = create(clazz);
+        this.expiredAt = expiredAt;
+        this.data = data;
     }
 
     public String getToken() {
@@ -20,5 +27,9 @@ public final class TokenData<ENTITY extends PersistentObject> extends Data<ENTIT
 
     public Data<ENTITY> getData() {
         return data;
+    }
+
+    public ZonedDateTime getExpiredAt() {
+        return expiredAt;
     }
 }
