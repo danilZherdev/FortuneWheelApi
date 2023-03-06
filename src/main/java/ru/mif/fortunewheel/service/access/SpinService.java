@@ -40,7 +40,7 @@ public class SpinService implements ReadOnlyService<Spin> {
     }
 
     public List<SpinData> create(String email, String userHash, int count) {
-        var user = userRepository.findByHash(userHash).orElseGet(() -> {
+        var user = userRepository.findByEmailAndHash(email, userHash).orElseGet(() -> {
             final var newUser = new User(email, userHash, UserRole.CUSTOMER);
             return userRepository.save(newUser);
         });
