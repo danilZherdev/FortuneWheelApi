@@ -1,7 +1,8 @@
 package ru.mif.fortunewheel.controller;
 
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import ru.mif.fortunewheel.domain.Spin;
+import ru.mif.fortunewheel.dto.Page;
 import ru.mif.fortunewheel.dto.data.SpinData;
 import ru.mif.fortunewheel.service.access.SpinService;
 
@@ -31,7 +32,7 @@ public class SpinController {
 
 //    @Secured({UserRole.CUSTOMER_ROLE, UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
     @GetMapping("/all/{userHash}/{number}/{size}")
-    Page<SpinData> getAll(@PathVariable String userHash, @PathVariable int number, @PathVariable int size) {
+    Page<Spin> getAll(@PathVariable String userHash, @PathVariable int number, @PathVariable int size) {
         return service.read(userHash, number, size);
     }
 

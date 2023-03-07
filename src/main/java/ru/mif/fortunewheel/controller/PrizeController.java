@@ -1,10 +1,10 @@
 package ru.mif.fortunewheel.controller;
 
-import org.springframework.data.domain.Page;
-//import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.mif.fortunewheel.domain.Prize;
 import ru.mif.fortunewheel.dto.Data;
+import ru.mif.fortunewheel.dto.Page;
 import ru.mif.fortunewheel.dto.data.PrizeData;
 import ru.mif.fortunewheel.dto.models.PrizeModel;
 import ru.mif.fortunewheel.enums.UserRole;
@@ -22,7 +22,7 @@ public class PrizeController {
         this.service = service;
     }
 
-//    @Secured({UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
+    @Secured({UserRole.ADMIN_ROLE, UserRole.API_CLIENT_ROLE})
     @PostMapping
     public PrizeData create(PrizeModel prizeModel){
         return (PrizeData) service.create(prizeModel);
@@ -47,7 +47,7 @@ public class PrizeController {
 
 //    @Secured({UserRole.ADMIN_ROLE,UserRole.API_CLIENT_ROLE})
     @GetMapping("/{size}/{number}")
-    public Page<Data<Prize>> get(@PathVariable int size, @PathVariable int number){
+    public Page<Prize> get(@PathVariable int size, @PathVariable int number){
         return service.read(size, number);
     }
 

@@ -64,7 +64,12 @@ public class UserJWTMapper extends AbstractJwtMapper<User> {
             logger.warn("Hash in token {} not found", token);
             return null;
         }
-        var user = repository.findByEmailAndHash(email.toString(), hash.toString());
+        var user = repository.findByEmailAndHashAndRoleIn(
+                email.toString(),
+                hash.toString(),
+                UserRole.CUSTOMER,
+                UserRole.ADMIN);
+
         if (user.isEmpty()) {
             logger.warn("User for token {} not found", token);
             return null;

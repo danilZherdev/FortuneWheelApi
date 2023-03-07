@@ -32,7 +32,12 @@ public class AuthenticatedUser {
             var role = identified.getAuthorities().stream().findAny()
                     .orElseThrow(() -> new AuthenticationException("Authentication failed."));
             if (!role.getAuthority().equals(UserRole.API_CLIENT_ROLE)) {
-                return userRepository.findByEmailAndHash(identified.getUsername(), identified.getPassword());
+                return userRepository.findByEmailAndHashAndRoleIn(
+                        identified.getUsername(),
+                        identified.getPassword(),
+                        UserRole.CUSTOMER,
+                        UserRole.ADMIN
+                );
             }
             return Optional.empty();
         });

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+
 public abstract class AbstractAuthenticationFilter extends OncePerRequestFilter {
 
     protected final Logger logger = LoggerFactory.getLogger(AbstractAuthenticationFilter.class);
