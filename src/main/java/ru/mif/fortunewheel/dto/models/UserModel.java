@@ -4,10 +4,12 @@ import ru.mif.fortunewheel.domain.User;
 import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.enums.UserRole;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+@Valid
 public class UserModel implements Model<User> {
 
     @Email

@@ -2,7 +2,6 @@ package ru.mif.fortunewheel.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import ru.mif.fortunewheel.domain.User;
 import ru.mif.fortunewheel.dto.data.TokenData;
 import ru.mif.fortunewheel.dto.data.UserData;
 import ru.mif.fortunewheel.dto.models.UserModel;
@@ -19,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public TokenData<User> auth(UserModel user) {
+    public TokenData<?> auth(@RequestBody UserModel user) {
         return customerService.authenticate(user.getEmail(), user.getHash());
     }
 

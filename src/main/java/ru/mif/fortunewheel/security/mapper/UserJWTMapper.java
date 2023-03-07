@@ -53,21 +53,21 @@ public class UserJWTMapper extends AbstractJwtMapper<User> {
     public Identified parse(String token) {
         var jwtOpt = parseJwt(token);
         if (jwtOpt.isEmpty())
-            throw new AuthenticationException("Authentication failed.");
+            return null;
         var email = jwtOpt.get().getHeader().get(EMAIL_KEY);
         if (email == null) {
             logger.warn("Email in token {} not found", token);
-            throw new AuthenticationException("Authentication failed.");
+            return null;
         }
         var hash = jwtOpt.get().getHeader().get(HASH_KEY);
         if (hash == null) {
             logger.warn("Hash in token {} not found", token);
-            throw new AuthenticationException("Authentication failed.");
+            return null;
         }
         var user = repository.findByEmailAndHash(email.toString(), hash.toString());
         if (user.isEmpty()) {
             logger.warn("User for token {} not found", token);
-            throw new AuthenticationException("Authentication failed.");
+            return null;
         }
 
         return new Identified(user.get());

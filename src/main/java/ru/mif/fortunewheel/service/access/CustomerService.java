@@ -24,7 +24,7 @@ public class CustomerService implements UserService<User>, ReadOnlyService<User>
     }
 
     @Override
-    public TokenData<User> authenticate(String username, String password) {
+    public TokenData authenticate(String username, String password) {
         var user = repository.findByEmailAndHash(username, password)
                 .orElseThrow(() -> new ServiceException("User with username = %s and hash = %s not found.", username, password));
         return mapper.create(user);

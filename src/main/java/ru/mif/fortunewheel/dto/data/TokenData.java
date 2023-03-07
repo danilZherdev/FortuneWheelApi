@@ -29,7 +29,5 @@ public final class TokenData<ENTITY extends PersistentObject> extends Data<ENTIT
         return data;
     }
 
-    public ZonedDateTime getExpiredAt() {
-        return expiredAt;
-    }
+
 }

@@ -44,19 +44,19 @@ public abstract class AbstractJwtMapper<ENTITY extends PersistentObject> impleme
             jwt = parser.parse(token);
         } catch (ExpiredJwtException e) {
             logger.warn("Token {} was expired.", token);
-            e.printStackTrace();
+//            e.printStackTrace();
         } catch (MalformedJwtException e) {
             logger.warn("Token {} is MalformedJwt token.", token);
-            e.printStackTrace();
+//            e.printStackTrace();
         } catch (SignatureException e) {
             logger.warn("Token {} was signed with another key Signature", token);
-            e.printStackTrace();
+//            e.printStackTrace();
         } catch (IllegalArgumentException e) {
-            logger.warn("Token {} was IllegalArgument", token);
-            e.printStackTrace();
+            logger.warn("Token {} was IllegalArgument in {}", token);
+//            e.printStackTrace();
         } catch (Exception e) {
             logger.warn("Uncaught exception in token {} parsing process", token);
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return Optional.ofNullable(jwt);
     }
