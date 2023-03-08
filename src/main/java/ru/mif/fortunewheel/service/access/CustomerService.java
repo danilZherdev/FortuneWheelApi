@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.mif.fortunewheel.domain.User;
 import ru.mif.fortunewheel.dto.Data;
+import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.dto.Page;
 import ru.mif.fortunewheel.dto.data.TokenData;
 import ru.mif.fortunewheel.dto.data.UserData;
@@ -15,14 +16,15 @@ import ru.mif.fortunewheel.security.AuthenticatedUser;
 import ru.mif.fortunewheel.security.AuthenticationException;
 import ru.mif.fortunewheel.security.ForbiddenException;
 import ru.mif.fortunewheel.security.mapper.UserJWTMapper;
-import ru.mif.fortunewheel.service.ReadOnlyService;
+import ru.mif.fortunewheel.service.ReadWriteService;
 import ru.mif.fortunewheel.service.ServiceException;
 import ru.mif.fortunewheel.service.UserService;
 
+import java.time.ZonedDateTime;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomerService implements UserService<User>, ReadOnlyService<User> {
+public class CustomerService implements UserService<User>, ReadWriteService<User> {
 
     private final Logger logger = LoggerFactory.getLogger(CustomerService.class);
     private final UserJWTMapper mapper;
@@ -50,12 +52,12 @@ public class CustomerService implements UserService<User>, ReadOnlyService<User>
 
     @Override
     public Data<User> readForUserOnly(long id) {
-        //get current user from SecurityContextHolder
+        // get current user from SecurityContextHolder
         var currentUser = authenticatedUser.get();
         if (currentUser.isEmpty()) {
             throw new AuthenticationException("Authentication failed.");
         }
-        //get resource by id
+        // get resource by id
         var user = repository.findByIdAndRole(id, UserRole.CUSTOMER)
                 .orElseThrow(() -> new ServiceException(logger, "User with id = %s not found.", id));
         //check if resource is resource of authenticated user
@@ -75,4 +77,30 @@ public class CustomerService implements UserService<User>, ReadOnlyService<User>
                 .collect(Collectors.toList());
         return new Page(page, items);
     }
+
+    @Override
+    public Data<User> create(Model<User> model) {
+        throw new UnsupportedOperationException("Create operation access only from SpinService");
+    }
+
+    @Override
+    public Data<User> update(Model<User> model) {
+        throw new UnsupportedOperationException("Update by model only unsupported now");
+    }
+
+    @Override
+    public Data<User> remove(long id) {
+        var userOptional = repository.findByIdAndDeletedAtIsNull(id);
+        if (userOptional.isEmpty()) {
+            throw new ServiceException("User with id = %s not found.", id);
+        }
+        User user = userOptional.get();
+        if (user.getDeletedAt() != null) {
+            throw new ServiceException("User with id = %s already bean deleted.", id);
+        }
+        user.setDeletedAt(ZonedDateTime.now());
+        repository.save(user);
+        return new UserData(user);
+    }
+
 }

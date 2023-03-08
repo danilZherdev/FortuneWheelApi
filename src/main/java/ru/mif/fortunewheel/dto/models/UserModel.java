@@ -1,5 +1,6 @@
 package ru.mif.fortunewheel.dto.models;
 
+import ru.mif.fortunewheel.domain.Prize;
 import ru.mif.fortunewheel.domain.User;
 import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.enums.UserRole;
@@ -44,5 +45,14 @@ public class UserModel implements Model<User> {
     @Override
     public User toEntity() {
         return new User(email, hash, UserRole.CUSTOMER);
+    }
+
+    public User toEntity(long id) {
+        return new User(
+                id,
+                email,
+                hash,
+                UserRole.CUSTOMER
+        );
     }
 }

@@ -30,6 +30,14 @@ public class Prize extends PersistentObject{
         this.type = type;
     }
 
+    public Prize(long id, String title, String description, String uri, PrizeType type) {
+        this.setId(id);
+        this.title = title;
+        this.description = description;
+        this.uri = uri;
+        this.type = type;
+    }
+
     public String getTitle() {
         return title;
     }

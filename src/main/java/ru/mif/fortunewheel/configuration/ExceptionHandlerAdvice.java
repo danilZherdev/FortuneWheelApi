@@ -48,4 +48,14 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<ErrorResponse> generalUnsupportedOperationHandler(UnsupportedOperationException exception) {
+        ErrorResponse error = new ErrorResponse(
+                exception.getMessage(),"", ZonedDateTime.now()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
 }

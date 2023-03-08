@@ -12,7 +12,7 @@ public class Spin extends PersistentObject {
     @Column(name = "hash", nullable = false)
     private String hash;
 
-    @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    @Column(name = "status", columnDefinition = "INTEGER DEFAULT 0")
     private SpinStatusType status;
 
     @ManyToOne

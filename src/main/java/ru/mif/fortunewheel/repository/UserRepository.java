@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByHash(String hash);
     Optional<User> findByIdAndRole(long id, UserRole role);
+    Optional<User> findByIdAndDeletedAtIsNull(long id);
     Optional<User> findByEmailAndHashAndRole(String email, String hash, UserRole role);
     Optional<User> findByEmailAndHashAndRoleIn(String email, String hash, UserRole... role);
     Page<User> findAllByRole(UserRole role, Pageable pageable);

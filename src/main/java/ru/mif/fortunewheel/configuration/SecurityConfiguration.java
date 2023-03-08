@@ -2,12 +2,16 @@ package ru.mif.fortunewheel.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 import ru.mif.fortunewheel.security.filters.ApiClientAuthenticationFilter;
 import ru.mif.fortunewheel.security.filters.AuthorizationHeaderFilter;
 import ru.mif.fortunewheel.security.filters.UserAuthenticationFilter;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfiguration {
@@ -37,7 +41,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .mvcMatchers("/user/auth**","/swagger-ui/**", "/v3/**").permitAll() //ignore this Urls.
+                .mvcMatchers( "/user/customer/auth**","/user/admin/auth**","/swagger-ui/**", "/v3/**").permitAll() //ignore this Urls.
                 .anyRequest().authenticated() // all others request authenticate.
                 .and().build();
     }

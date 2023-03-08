@@ -23,9 +23,8 @@ public interface ReadWriteService<ENTITY extends PersistentObject>
 
     /**
      * Updating entity by id and model
-     * @param id
-     * @param model
-     * @return Data
+     * @param id identifier of entity.
+     * @return Data result data representation of entity.
      */
-    Data<ENTITY> update(long id, Model<ENTITY> model);
+    Data<ENTITY> remove(long id);
 }

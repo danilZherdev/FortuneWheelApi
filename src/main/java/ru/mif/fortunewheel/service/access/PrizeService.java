@@ -9,6 +9,7 @@ import ru.mif.fortunewheel.dto.Data;
 import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.dto.Page;
 import ru.mif.fortunewheel.dto.data.PrizeData;
+import ru.mif.fortunewheel.dto.models.PrizeModel;
 import ru.mif.fortunewheel.repository.PrizeRepository;
 import ru.mif.fortunewheel.service.FullAccessService;
 import ru.mif.fortunewheel.service.ServiceException;
@@ -56,18 +57,19 @@ public class PrizeService implements FullAccessService<Prize> {
 
     @Override
     public Data<Prize> create(Model<Prize> model) {
-        return new PrizeData(repository.save(model.toEntity()));
+        var entity = repository.save(model.toEntity());
+        return new PrizeData(entity);
     }
 
     @Override
     public Data<Prize> update(Model<Prize> model) {
-        return new PrizeData(repository.save(model.toEntity()));
+        final PrizeModel m = (PrizeModel) model;
+        final Prize p = repository.save(m.toEntity(m.getId()));
+        return new PrizeData(p);
     }
 
     @Override
-    public Data<Prize> update(long id, Model<Prize> model) {
-        return repository.findById(id)
-                .map(e -> new PrizeData(repository.save(model.toEntity())))
-                .orElseThrow(() -> new ServiceException(logger, "Prize with id = %s not found", id));
+    public Data<Prize> remove(long id) {
+        throw new UnsupportedOperationException("Removing of Prize is not supported.");
     }
 }

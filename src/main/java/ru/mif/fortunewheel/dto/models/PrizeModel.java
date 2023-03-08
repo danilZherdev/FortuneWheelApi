@@ -1,16 +1,14 @@
 package ru.mif.fortunewheel.dto.models;
 
-import org.springframework.validation.annotation.Validated;
 import ru.mif.fortunewheel.domain.Prize;
 import ru.mif.fortunewheel.dto.Model;
 import ru.mif.fortunewheel.enums.PrizeType;
-import ru.mif.fortunewheel.utils.Patterns;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 
-@Validated
+@Valid
 public class PrizeModel implements Model<Prize> {
 
     private long id;
@@ -18,9 +16,11 @@ public class PrizeModel implements Model<Prize> {
     @Min(value = 8, message = "Длина описания должна быть не менее 8 символов")
     @Max(value = 2048, message = "Длина описания должна быть не более 2048 символов")
     private String description;
-    @Pattern(regexp = Patterns.URL_PATTERN, message = "Указанный домен не является валидным доменом.")
     private String url;
     private PrizeType prizeType;
+
+    public PrizeModel() {
+    }
 
     public PrizeModel(long id, String title, String description, String url, PrizeType prizeType) {
         this.id = id;
@@ -28,9 +28,6 @@ public class PrizeModel implements Model<Prize> {
         this.description = description;
         this.url = url;
         this.prizeType = prizeType;
-    }
-
-    public PrizeModel() {
     }
 
     public long getId() {
@@ -76,6 +73,16 @@ public class PrizeModel implements Model<Prize> {
     @Override
     public Prize toEntity() {
         return new Prize(
+                this.getTitle(),
+                this.getDescription(),
+                this.getUrl(),
+                this.getPrizeType()
+        );
+    }
+
+    public Prize toEntity(long id) {
+        return new Prize(
+                id,
                 this.getTitle(),
                 this.getDescription(),
                 this.getUrl(),

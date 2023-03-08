@@ -19,6 +19,13 @@ public class User extends PersistentObject {
 
     public User() {}
 
+    public User(long id, String email, String hash, UserRole role) {
+        this.setId(id);
+        this.email = email;
+        this.hash = hash;
+        this.role = role;
+    }
+
     public User(String email, String hash, UserRole role) {
         this.email = email;
         this.hash = hash;
